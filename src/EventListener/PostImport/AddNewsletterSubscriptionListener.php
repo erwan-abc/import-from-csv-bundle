@@ -44,7 +44,10 @@ final class AddNewsletterSubscriptionListener
             return;
         }
 
-        $row = $this->connection->fetchAssociative('SELECT * FROM tl_member WHERE id = ?', [$event->getInsertId()]);
+        $record = $event->getDataRecord();
+
+        //$row = $this->connection->fetchAssociative('SELECT * FROM tl_member WHERE id = ?', [$event->getInsertId()]);
+        $row = $this->connection->fetchAssociative('SELECT * FROM tl_member WHERE email = ?', [$record["email"]]);
 
         if (false === $row) {
             return;
